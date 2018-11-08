@@ -5027,6 +5027,7 @@ static struct platform_driver icnss_driver = {
 
 static int __init icnss_initialize(void)
 {
+#ifdef CONFIG_IPC_LOGGING
 	icnss_ipc_log_context = ipc_log_context_create(NUM_LOG_PAGES,
 						       "icnss", 0);
 	if (!icnss_ipc_log_context)
@@ -5036,6 +5037,7 @@ static int __init icnss_initialize(void)
 						       "icnss_long", 0);
 	if (!icnss_ipc_log_long_context)
 		icnss_pr_err("Unable to create log long context\n");
+#endif
 
 	return platform_driver_register(&icnss_driver);
 }
@@ -5043,10 +5045,12 @@ static int __init icnss_initialize(void)
 static void __exit icnss_exit(void)
 {
 	platform_driver_unregister(&icnss_driver);
+#ifdef CONFIG_IPC_LOGGING
 	ipc_log_context_destroy(icnss_ipc_log_context);
 	icnss_ipc_log_context = NULL;
 	ipc_log_context_destroy(icnss_ipc_log_long_context);
 	icnss_ipc_log_long_context = NULL;
+#endif
 }
 
 

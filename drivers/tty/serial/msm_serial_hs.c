@@ -3687,10 +3687,12 @@ static int msm_hs_probe(struct platform_device *pdev)
 	memset(name, 0, sizeof(name));
 	
 	snprintf(name, sizeof(name), "msm_serial_hs%d_state", pdev->id);
-	
+
+#ifdef CONFIG_IPC_LOGGING
 	msm_uport->ipc_msm_hs_log_ctxt =
 			ipc_log_context_create(IPC_MSM_HS_LOG_STATE_PAGES,
 								name, 0);
+#endif
 	msm_uport->jig_state = false;
 #if defined(CONFIG_MUIC_NOTIFIER)
 	if (pdev->id == HS_SERIAL_ID_AT) {
@@ -3699,8 +3701,10 @@ static int msm_hs_probe(struct platform_device *pdev)
 	}
 #endif
 	if (!msm_uport->ipc_msm_hs_log_ctxt) {
+#ifdef CONFIG_IPC_LOGGING
 		dev_err(&pdev->dev, "%s: error creating logging context",
 								__func__);
+#endif
 	} else {
 		if (pdev->id == HS_SERIAL_ID_AT)
 			msm_uport->ipc_debug_mask = DBG_LEV;
@@ -3784,6 +3788,7 @@ static int msm_hs_probe(struct platform_device *pdev)
 	msm_uport->tx.flush = FLUSH_SHUTDOWN;
 	msm_uport->rx.flush = FLUSH_SHUTDOWN;
 
+#ifdef CONFIG_IPC_LOGGING
 	memset(name, 0, sizeof(name));
 
 	snprintf(name, sizeof(name), "msm_serial_hs%d_tx", pdev->id);
@@ -3813,6 +3818,7 @@ static int msm_hs_probe(struct platform_device *pdev)
 	if (!msm_uport->ipc_msm_hs_pwr_ctxt)
 		dev_err(&pdev->dev, "%s: error creating usr logging context",
 								__func__);
+#endif
 
 	uport->irq = core_irqres;
 	msm_uport->bam_irq = bam_irqres;
