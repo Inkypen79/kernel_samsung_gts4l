@@ -2275,6 +2275,7 @@
 			interrupts = <0x0 0x16 0x0>;
 			clock-names = "atb_clk";
 			clocks = <0x2e 0x1492202a>;
+			status = "disabled";
 		};
 
 		qcom,smem@86000000 {
@@ -6144,7 +6145,7 @@
 			coresight-name = "coresight-tmc-etr";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -6164,7 +6165,7 @@
 			coresight-name = "coresight-replicator";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -6202,7 +6203,7 @@
 			arm,default-sink;
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -6238,7 +6239,7 @@
 			coresight-name = "coresight-funnel-merg";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -6285,7 +6286,7 @@
 			coresight-name = "coresight-funnel-in0";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -6354,7 +6355,7 @@
 			coresight-name = "coresight-funnel-in1";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -6445,7 +6446,7 @@
 			coresight-name = "coresight-funnel-apss-merg";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -6503,7 +6504,7 @@
 			coresight-name = "coresight-funnel-apss";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -6616,7 +6617,7 @@
 			coresight-name = "coresight-stm";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -6635,7 +6636,7 @@
 			coresight-name = "coresight-etm0";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -6654,7 +6655,7 @@
 			coresight-name = "coresight-etm1";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -6673,7 +6674,7 @@
 			coresight-name = "coresight-etm2";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -6692,7 +6693,7 @@
 			coresight-name = "coresight-etm3";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -6711,7 +6712,7 @@
 			coresight-name = "coresight-etm4";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -6730,7 +6731,7 @@
 			coresight-name = "coresight-etm5";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -6749,7 +6750,7 @@
 			coresight-name = "coresight-etm6";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -6768,7 +6769,7 @@
 			coresight-name = "coresight-etm7";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -6786,6 +6787,7 @@
 			coresight-name = "coresight-cti0";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 			linux,phandle = <0xdf>;
 			phandle = <0xdf>;
 		};
@@ -6797,6 +6799,7 @@
 			coresight-name = "coresight-cti1";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@6012000 {
@@ -6806,6 +6809,7 @@
 			coresight-name = "coresight-cti2";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 			qcom,cti-gpio-trigout = <0x4>;
 			pinctrl-names = "cti-trigout-pctrl";
 			pinctrl-0 = <0x10b>;
@@ -6818,6 +6822,7 @@
 			coresight-name = "coresight-cti3";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@6014000 {
@@ -6827,6 +6832,7 @@
 			coresight-name = "coresight-cti4";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@6015000 {
@@ -6836,6 +6842,7 @@
 			coresight-name = "coresight-cti5";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@6016000 {
@@ -6845,6 +6852,7 @@
 			coresight-name = "coresight-cti6";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@6017000 {
@@ -6854,6 +6862,7 @@
 			coresight-name = "coresight-cti7";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@6018000 {
@@ -6863,6 +6872,7 @@
 			coresight-name = "coresight-cti8";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 			linux,phandle = <0xe0>;
 			phandle = <0xe0>;
 		};
@@ -6874,6 +6884,7 @@
 			coresight-name = "coresight-cti9";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@601a000 {
@@ -6883,6 +6894,7 @@
 			coresight-name = "coresight-cti10";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@601b000 {
@@ -6892,6 +6904,7 @@
 			coresight-name = "coresight-cti11";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@601c000 {
@@ -6901,6 +6914,7 @@
 			coresight-name = "coresight-cti12";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@601d000 {
@@ -6910,6 +6924,7 @@
 			coresight-name = "coresight-cti13";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@601e000 {
@@ -6919,6 +6934,7 @@
 			coresight-name = "coresight-cti14";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@601f000 {
@@ -6928,6 +6944,7 @@
 			coresight-name = "coresight-cti15";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@7820000 {
@@ -6938,6 +6955,7 @@
 			cpu = <0x16>;
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@7920000 {
@@ -6948,6 +6966,7 @@
 			cpu = <0x17>;
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@7a20000 {
@@ -6958,6 +6977,7 @@
 			cpu = <0x18>;
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@7b20000 {
@@ -6968,6 +6988,7 @@
 			cpu = <0x19>;
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@7c20000 {
@@ -6978,6 +6999,7 @@
 			cpu = <0x1a>;
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@7d20000 {
@@ -6988,6 +7010,7 @@
 			cpu = <0x1b>;
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@7e20000 {
@@ -6998,6 +7021,7 @@
 			cpu = <0x1c>;
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@7f20000 {
@@ -7008,6 +7032,7 @@
 			cpu = <0x1d>;
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@7b80000 {
@@ -7017,6 +7042,7 @@
 			coresight-name = "coresight-cti-apss";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@7bc1000 {
@@ -7026,6 +7052,7 @@
 			coresight-name = "coresight-cti-apss-dl";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		cti@7b91000 {
@@ -7035,6 +7062,7 @@
 			coresight-name = "coresight-cti-olc";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
+			status = "disabled";
 		};
 
 		funnel@6005000 {
@@ -7045,7 +7073,7 @@
 			coresight-name = "coresight-funnel-qatb";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -7096,7 +7124,7 @@
 			qcom,cmb-elem-size = <0x3 0x20 0x4 0x20 0x5 0x20 0x9 0x40>;
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -7175,7 +7203,7 @@
 			coresight-name = "coresight-tpdm-vsense";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -7193,7 +7221,7 @@
 			coresight-name = "coresight-tpdm-dcc";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -7211,7 +7239,7 @@
 			coresight-name = "coresight-tpdm-prng";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -7230,7 +7258,7 @@
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
 			qcom,msr-fix-req;
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -7249,7 +7277,7 @@
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
 			qcom,msr-fix-req;
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -7269,7 +7297,7 @@
 			qcom,dsb-elem-size = <0x0 0x20>;
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -7305,7 +7333,7 @@
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
 			qcom,msr-fix-req;
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -7326,7 +7354,7 @@
 			qcom,cmb-elem-size = <0x0 0x20>;
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -7362,7 +7390,7 @@
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
 			qcom,msr-fix-req;
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -7382,7 +7410,7 @@
 			qcom,cmb-elem-size = <0x0 0x20>;
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -7417,7 +7445,7 @@
 			coresight-name = "coresight-tpdm-nav";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -7437,7 +7465,7 @@
 			qcom,cmb-elem-size = <0x0 0x40>;
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -7472,7 +7500,7 @@
 			coresight-name = "coresight-tpdm-olc";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -7491,7 +7519,7 @@
 			coresight-name = "coresight-funnel-spss";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -7539,7 +7567,7 @@
 			qcom,dsb-elem-size = <0x0 0x20>;
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -7575,7 +7603,7 @@
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "core_clk", "core_a_clk";
 			qcom,msr-fix-req;
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -7593,6 +7621,7 @@
 			coresight-name = "coresight-hwevent";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669 0x27 0xea30b0e7>;
 			clock-names = "core_clk", "core_a_clk", "core_mmss_clk";
+			status = "disabled";
 			qcom,hwevent-clks = "core_mmss_clk";
 		};
 
@@ -7602,13 +7631,14 @@
 			reg-names = "csr-base";
 			coresight-name = "coresight-csr";
 			qcom,blk-size = <0x1>;
+			status = "disabled";
 		};
 
 		modem_etm0 {
 			compatible = "qcom,coresight-remote-etm";
 			coresight-name = "coresight-modem-etm0";
 			qcom,inst-id = <0x2>;
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -7623,7 +7653,7 @@
 			compatible = "qcom,coresight-remote-etm";
 			coresight-name = "coresight-audio-etm0";
 			qcom,inst-id = <0x5>;
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -7638,7 +7668,7 @@
 			compatible = "qcom,coresight-remote-etm";
 			coresight-name = "coresight-rpm-etm0";
 			qcom,inst-id = <0x4>;
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -7657,7 +7687,7 @@
 			coresight-name = "coresight-funnel-dlet-qatb";
 			clocks = <0x2e 0x1492202a 0x2e 0xdd121669>;
 			clock-names = "apb_pclk", "core_a_clk";
-
+			status = "disabled";
 			ports {
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
@@ -7688,7 +7718,7 @@
 		dummy-tpdm-wcss {
 			compatible = "qcom,coresight-dummy";
 			coresight-name = "coresight-tpdm-wcss";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -7702,7 +7732,7 @@
 		dummy-spss-etm0 {
 			compatible = "qcom,coresight-dummy";
 			coresight-name = "coresight-spss-etm0";
-
+			status = "disabled";
 			port {
 
 				endpoint {
@@ -9260,7 +9290,7 @@
 			qcom,no-nap;
 			qcom,highest-bank-bit = <0xf>;
 			qcom,snapshot-size = <0x100000>;
-			qcom,gpu-qdss-stm = <0x161c0000 0x40000>;
+			//qcom,gpu-qdss-stm = <0x161c0000 0x40000>;
 			qcom,gpu-qtimer = <0x17921000 0x1000>;
 			qcom,tsens-name = "tsens_tz_sensor12";
 			qcom,l2pc-cpu-mask = <0xf0>;
@@ -9283,8 +9313,8 @@
 			regulator-names = "vddcx", "vdd";
 			vddcx-supply = <0xbe>;
 			vdd-supply = <0x18e>;
-			coresight-name = "coresight-gfx";
-			coresight-atid = <0x3>;
+			//coresight-name = "coresight-gfx";
+			//coresight-atid = <0x3>;
 			linux,phandle = <0x41>;
 			phandle = <0x41>;
 
