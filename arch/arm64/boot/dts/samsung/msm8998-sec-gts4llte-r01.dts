@@ -17807,7 +17807,6 @@
 				stm,afe_base = <0x215>;
 				stm,support_aot;
 				stm,factory_item_version = <0x4>;
-				support_dex_mode;
 			};
 		};
 
