@@ -2465,9 +2465,6 @@ static void fts_set_input_prop(struct fts_ts_info *info, struct input_dev *dev, 
 	dev->phys = fts_ts_phys;
 	dev->id.bustype = BUS_I2C;
 
-#ifdef CONFIG_GLOVE_TOUCH
-	input_set_capability(dev, EV_SW, SW_GLOVE);
-#endif
 	set_bit(EV_SYN, dev->evbit);
 	set_bit(EV_KEY, dev->evbit);
 	set_bit(EV_ABS, dev->evbit);
@@ -3146,7 +3143,6 @@ void fts_release_all_finger(struct fts_ts_info *info)
 	input_report_key(info->input_dev, BTN_TOOL_FINGER, 0);
 
 #ifdef CONFIG_GLOVE_TOUCH
-	input_report_switch(info->input_dev, SW_GLOVE, false);
 	info->touch_mode = FTS_TM_NORMAL;
 #endif
 	input_report_key(info->input_dev, KEY_WAKEUP, 0);

@@ -1920,8 +1920,6 @@ static unsigned char fts_event_handler_type_b(struct fts_ts_info *info,
 					info->touch_mode = FTS_TM_GLOVE;
 				else
 					info->touch_mode = FTS_TM_NORMAL;
-
-				input_report_switch(info->input_dev, SW_GLOVE, info->touch_mode);
 #endif
 			} else if (status == STATUS_EVENT_FORCE_CAL_TRIGGER) {
 				input_info(true, &info->client->dev, "%s: Received Force Calibration trigger Event\n", __func__);
@@ -2805,9 +2803,6 @@ static void fts_set_input_prop(struct fts_ts_info *info, struct input_dev *dev, 
 	dev->phys = fts_ts_phys;
 	dev->id.bustype = BUS_I2C;
 
-#ifdef CONFIG_GLOVE_TOUCH
-	input_set_capability(dev, EV_SW, SW_GLOVE);
-#endif
 	set_bit(EV_SYN, dev->evbit);
 	set_bit(EV_KEY, dev->evbit);
 	set_bit(EV_ABS, dev->evbit);
@@ -3442,7 +3437,6 @@ void fts_unlocked_release_all_finger(struct fts_ts_info *info)
 	input_report_key(info->input_dev, BTN_TOOL_FINGER, 0);
 
 #ifdef CONFIG_GLOVE_TOUCH
-	input_report_switch(info->input_dev, SW_GLOVE, false);
 	info->touch_mode = FTS_TM_NORMAL;
 #endif
 	input_report_key(info->input_dev, KEY_HOMEPAGE, 0);
@@ -3497,7 +3491,6 @@ void fts_locked_release_all_finger(struct fts_ts_info *info)
 	input_report_key(info->input_dev, BTN_TOOL_FINGER, 0);
 
 #ifdef CONFIG_GLOVE_TOUCH
-	input_report_switch(info->input_dev, SW_GLOVE, false);
 	info->touch_mode = FTS_TM_NORMAL;
 #endif
 	input_report_key(info->input_dev, KEY_HOMEPAGE, 0);

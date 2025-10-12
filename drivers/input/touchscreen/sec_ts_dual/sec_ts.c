@@ -1263,10 +1263,8 @@ static void sec_sec_ts_read_event(struct sec_ts_data *ts)
 					} else if (coordinate->action == SEC_TS_COORDINATE_ACTION_MOVE) {
 						if ((coordinate->ttype == SEC_TS_TOUCHTYPE_GLOVE) && !ts->touchkey_glove_mode_status) {
 							ts->touchkey_glove_mode_status = true;
-							input_report_switch(ts->input_dev, SW_GLOVE, 1);
 						} else if ((coordinate->ttype != SEC_TS_TOUCHTYPE_GLOVE) && ts->touchkey_glove_mode_status) {
 							ts->touchkey_glove_mode_status = false;
-							input_report_switch(ts->input_dev, SW_GLOVE, 0);
 						}
 
 						input_mt_slot(ts->input_dev, t_id);
@@ -2548,8 +2546,6 @@ static int sec_ts_probe(struct i2c_client *client, const struct i2c_device_id *i
 	set_bit(KEY_SIDE_GESTURE_LEFT, ts->input_dev->keybit);
 	set_bit(INPUT_PROP_DIRECT, ts->input_dev->propbit);
 
-	input_set_capability(ts->input_dev, EV_SW, SW_GLOVE);
-
 	input_mt_init_slots(ts->input_dev, MAX_SUPPORT_TOUCH_COUNT, INPUT_MT_DIRECT);
 	input_set_abs_params(ts->input_dev, ABS_MT_POSITION_X, 0, ts->plat_data->max_x, 0, 0);
 	input_set_abs_params(ts->input_dev, ABS_MT_POSITION_Y, 0, ts->plat_data->max_y, 0, 0);
@@ -2680,7 +2676,6 @@ void sec_ts_unlocked_release_all_finger(struct sec_ts_data *ts)
 
 	input_report_key(ts->input_dev, BTN_TOUCH, false);
 	input_report_key(ts->input_dev, BTN_TOOL_FINGER, false);
-	input_report_switch(ts->input_dev, SW_GLOVE, false);
 	ts->touchkey_glove_mode_status = false;
 	ts->touch_count = 0;
 
@@ -2723,7 +2718,6 @@ void sec_ts_locked_release_all_finger(struct sec_ts_data *ts)
 
 	input_report_key(ts->input_dev, BTN_TOUCH, false);
 	input_report_key(ts->input_dev, BTN_TOOL_FINGER, false);
-	input_report_switch(ts->input_dev, SW_GLOVE, false);
 	ts->touchkey_glove_mode_status = false;
 	ts->touch_count = 0;
 
