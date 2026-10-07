@@ -49,18 +49,21 @@ config ANDROID_LOW_MEMORY_KILLER_AUTODETECT_OOM_ADJ_VALUES
 
 config SEC_TIMEOUT_LOW_MEMORY_KILLER
 	bool "Android timeout Low Memory Killer"
+	depends on ANDROID_LOW_MEMORY_KILLER
 	default n
 	help
 	 This invokes timeout based LMK
 
 config SEC_DEBUG_LMK_MEMINFO
 	bool "Show Meminfo when lmk invoked"
+	depends on ANDROID_LOW_MEMORY_KILLER
 	default n
 	help
 	  Show memory information when lmk kills process
 
 config SEC_DEBUG_LMK_COUNT_INFO
 	bool "Record LMK execution count"
+	depends on ANDROID_LOW_MEMORY_KILLER
 	default n
 	help
 	  Show LMK execution count information when lmk invoked
