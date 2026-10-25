@@ -9,7 +9,7 @@
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
  */
-#define DEBUG
+//#define DEBUG
 
 #include "include/sec_multi_port_charger.h"
 
@@ -129,7 +129,7 @@ static void sec_multi_chg_set_input_current(struct sec_multi_charger_info *charg
 
 	/* set input current */
 	if (charger->main_input_current > main_input_current) {
-		pr_info("%s: set input current - main(%dmA -> %dmA)\n", __func__, charger->main_input_current, main_input_current);
+		pr_debug("%s: set input current - main(%dmA -> %dmA)\n", __func__, charger->main_input_current, main_input_current);
 		value.intval = main_input_current;
 		psy_do_property(charger->pdata->main_charger_name, set,
 				POWER_SUPPLY_PROP_CURRENT_MAX, value);
@@ -150,7 +150,7 @@ static void sec_multi_chg_set_input_current(struct sec_multi_charger_info *charg
 
 	/* set input current */
 	if (charger->main_input_current != main_input_current) {
-		pr_info("%s: set input current - main(%dmA -> %dmA)\n", __func__, charger->main_input_current, main_input_current);
+		pr_debug("%s: set input current - main(%dmA -> %dmA)\n", __func__, charger->main_input_current, main_input_current);
 		value.intval = main_input_current;
 		psy_do_property(charger->pdata->main_charger_name, set,
 			POWER_SUPPLY_PROP_CURRENT_MAX, value);
@@ -267,7 +267,7 @@ static bool sec_multi_chg_check_abnormal_case(struct sec_multi_charger_info *cha
 
 	check_val = (value.intval != POWER_SUPPLY_STATUS_CHARGING && charger->sub_is_charging) |
 		(value.intval == POWER_SUPPLY_STATUS_CHARGING && !charger->sub_is_charging);
-	pr_info("%s: check abnormal case(check_val:%d, status:%d, sub_is_charging:%d)\n",
+	pr_debug("%s: check abnormal case(check_val:%d, status:%d, sub_is_charging:%d)\n",
 		__func__, check_val, value.intval, charger->sub_is_charging);
 
 	return check_val;
@@ -333,7 +333,7 @@ static void  sec_multi_chg_check_enable(struct sec_multi_charger_info *charger)
 #if defined(CONFIG_SEC_FACTORY)
 	mutex_unlock(&charger->charger_test_mutex);
 #endif
-	pr_info("%s: sub_is_charging:%d, main_input: %d, sub_input: %d, "
+	pr_debug("%s: sub_is_charging:%d, main_input: %d, sub_input: %d, "
 		"main_charge: %d, sub_charge: %d\n",
 		__func__, charger->sub_is_charging, charger->main_input_current, charger->sub_input_current,
 		charger->main_charging_current, charger->sub_charging_current);
@@ -421,7 +421,7 @@ static int sec_multi_chg_get_property(struct power_supply *psy,
 			break;
 		case POWER_SUPPLY_EXT_PROP_SUB_CURRENT_NOW:
 			val->intval = charger->sub_charging_current;
-			pr_info("%s: EXT_PROP_SUB_CURRENT_NOW (%d)\n", __func__, val->intval);
+			pr_debug("%s: EXT_PROP_SUB_CURRENT_NOW (%d)\n", __func__, val->intval);
 			break;
 		default:
 			return -EINVAL;
@@ -512,14 +512,14 @@ static int sec_multi_chg_set_property(struct power_supply *psy,
 		break;
 	case POWER_SUPPLY_PROP_CURRENT_MAX:
 		mutex_lock(&charger->charger_mutex);
-		pr_info("%s: POWER_SUPPLY_PROP_CURRENT_MAX(%d))\n",__func__, val->intval);
+		pr_debug("%s: POWER_SUPPLY_PROP_CURRENT_MAX(%d))\n",__func__, val->intval);
 		charger->main_current.input_current_limit = val->intval;
 		mutex_unlock(&charger->charger_mutex);
 		sec_multi_chg_check_enable(charger);
 		break;
 	case POWER_SUPPLY_PROP_CURRENT_NOW:
 		mutex_lock(&charger->charger_mutex);
-		pr_info("%s: POWER_SUPPLY_PROP_CURRENT_NOW(%d))\n",__func__, val->intval);
+		pr_debug("%s: POWER_SUPPLY_PROP_CURRENT_NOW(%d))\n",__func__, val->intval);
 		charger->main_current.fast_charging_current = val->intval;
 		mutex_unlock(&charger->charger_mutex);
 		sec_multi_chg_check_enable(charger);
@@ -612,7 +612,7 @@ static int sec_multi_chg_set_property(struct power_supply *psy,
 						ext_psp, value);
 			break;
 		case POWER_SUPPLY_EXT_PROP_SUB_CURRENT_NOW:
-			pr_info("%s: EXT_PROP_SUB_CURRENT_NOW (%d)\n", __func__, val->intval);
+			pr_debug("%s: EXT_PROP_SUB_CURRENT_NOW (%d)\n", __func__, val->intval);
 			charger->sub_current.fast_charging_current = val->intval;
 			break;
 		default:
