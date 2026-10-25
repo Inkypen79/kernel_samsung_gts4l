@@ -9,7 +9,7 @@
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
  */
-#define DEBUG
+//#define DEBUG
 
 #include <linux/debugfs.h>
 #include <linux/seq_file.h>
@@ -85,7 +85,7 @@ static void bq25898s_test_read(struct bq25898s_charger *charger)
 		bq25898s_read_reg(charger->i2c, reg, &reg_data);
 		sprintf(str + strlen(str), "0x%02x:0x%02x,", reg, reg_data);
 	}
-	pr_info("%s : %s\n", __func__, str);
+	pr_debug("%s : %s\n", __func__, str);
 
 }
 
@@ -156,7 +156,7 @@ static void bq25898s_watchdog_reset(struct bq25898s_charger *charger)
 
 	bq25898s_update_reg(charger->i2c, BQ25898S_CHG_REG_03, 0x40, 0x40);
 	bq25898s_read_reg(charger->i2c, BQ25898S_CHG_REG_03, &data);
-	pr_info("%s : BQ25898S_CHG_REG_03(0x%02x)\n", __func__, data);
+	pr_debug("%s : BQ25898S_CHG_REG_03(0x%02x)\n", __func__, data);
 }
 
 static void bq25898s_set_watchdog_timer_en(struct bq25898s_charger *charger, int time)
