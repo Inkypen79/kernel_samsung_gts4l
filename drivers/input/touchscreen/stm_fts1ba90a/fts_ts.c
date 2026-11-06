@@ -3483,6 +3483,13 @@ static int fts_fb_notifier_callback(struct notifier_block *self,
 	struct fb_event *evdata = data;
 	int blank;
 
+	/*
+	 * Only blank events carry a blank mode in evdata->data. Others, such as
+	 * FB_EVENT_SUSPEND from fb_set_suspend(), leave it uninitialised.
+	 */
+	if (event != FB_EARLY_EVENT_BLANK && event != FB_EVENT_BLANK)
+		return NOTIFY_DONE;
+
 	if (!evdata || !evdata->info || !evdata->data || evdata->info->node != 0)
 		return NOTIFY_DONE;
 
