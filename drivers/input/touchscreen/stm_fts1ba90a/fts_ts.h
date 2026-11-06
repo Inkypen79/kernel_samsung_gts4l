@@ -2,6 +2,7 @@
 #define _LINUX_FTS_TS_H_
 
 #include <linux/device.h>
+#include <linux/notifier.h>
 #include <linux/input/sec_cmd.h>
 #include <linux/wakelock.h>
 #include <linux/vmalloc.h>
@@ -710,6 +711,10 @@ struct fts_ts_info {
 	u8 pressure_user_level;
 
 	u16 rect_data[4];
+#ifdef CONFIG_FB
+	struct notifier_block fb_notif;
+#endif
+	bool panel_off;
 	u8 ito_test[4];
 	u8 check_multi;
 	unsigned int multi_count;

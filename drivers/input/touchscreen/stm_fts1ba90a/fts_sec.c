@@ -1858,7 +1858,7 @@ static void module_on_master(void *device_data)
 
 	ret = fts_start_device(info);
 
-	if (info->input_dev->disabled)
+	if (info->input_dev->disabled || info->panel_off)
 		fts_stop_device(info, info->lowpower_flag);
 
 	if (ret == 0)
