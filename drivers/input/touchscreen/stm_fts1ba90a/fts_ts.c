@@ -44,6 +44,9 @@
 #include <linux/regulator/consumer.h>
 #include <linux/of_gpio.h>
 #include <linux/input/mt.h>
+#ifdef CONFIG_FB
+#include <linux/fb.h>
+#endif
 #ifdef CONFIG_SEC_SYSFS
 #include <linux/sec_sysfs.h>
 #endif
@@ -104,6 +107,11 @@ static void fts_open_work(struct work_struct *work);
 
 static int fts_stop_device(struct fts_ts_info *info, bool lpmode);
 static int fts_start_device(struct fts_ts_info *info);
+
+#ifdef CONFIG_FB
+static int fts_fb_notifier_callback(struct notifier_block *self,
+		unsigned long event, void *data);
+#endif
 
 static void fts_reset(struct fts_ts_info *info, unsigned int ms);
 static void fts_reset_work(struct work_struct *work);
@@ -1806,9 +1814,9 @@ static u8 fts_event_handler_type_b(struct fts_ts_info *info)
 			if (p_gesture_status->sf == FTS_GESTURE_SAMSUNG_FEATURE) {
 				if ((info->lowpower_flag & FTS_MODE_DOUBLETAP_WAKEUP) &&
 						p_gesture_status->stype == FTS_SPONGE_EVENT_DOUBLETAP) {
-					input_report_key(info->input_dev, KEY_HOMEPAGE, 1);
+					input_report_key(info->input_dev, KEY_WAKEUP, 1);
 					input_sync(info->input_dev);
-					input_report_key(info->input_dev, KEY_HOMEPAGE, 0);
+					input_report_key(info->input_dev, KEY_WAKEUP, 0);
 					input_info(true, &info->client->dev, "%s: Dobule Tap Wake up\n", __func__);
 					break;
 				}
@@ -1817,9 +1825,9 @@ static u8 fts_event_handler_type_b(struct fts_ts_info *info)
 			{
 				if ((info->lowpower_flag & FTS_MODE_DOUBLETAP_WAKEUP) && p_gesture_status->gesture_id == 0x01) {
 					input_info(true, &info->client->dev, "%s: AOT\n", __func__);
-					input_report_key(info->input_dev, KEY_HOMEPAGE, 1);
+					input_report_key(info->input_dev, KEY_WAKEUP, 1);
 					input_sync(info->input_dev);
-					input_report_key(info->input_dev, KEY_HOMEPAGE, 0);
+					input_report_key(info->input_dev, KEY_WAKEUP, 0);
 				}
 			}
 			break;
@@ -2467,7 +2475,7 @@ static void fts_set_input_prop(struct fts_ts_info *info, struct input_dev *dev, 
 	set_bit(BTN_TOUCH, dev->keybit);
 	set_bit(BTN_TOOL_FINGER, dev->keybit);
 	set_bit(KEY_BLACK_UI_GESTURE, dev->keybit);
-	set_bit(KEY_HOMEPAGE, dev->keybit);
+	set_bit(KEY_WAKEUP, dev->keybit);
 
 #ifdef FTS_SUPPORT_TOUCH_KEY
 	if (info->board->support_mskey) {
@@ -2729,6 +2737,14 @@ static int fts_probe(struct i2c_client *client, const struct i2c_device_id *idp)
 	fts_check_custom_library(info);
 #endif
 
+#ifdef CONFIG_FB
+	info->fb_notif.notifier_call = fts_fb_notifier_callback;
+	retval = fb_register_client(&info->fb_notif);
+	if (retval)
+		input_err(true, &info->client->dev,
+				"%s: failed to register fb notifier: %d\n", __func__, retval);
+#endif
+
 	schedule_delayed_work(&info->work_read_info, msecs_to_jiffies(5 * MSEC_PER_SEC));
 
 #if defined(CONFIG_TOUCHSCREEN_DUMP_MODE)
@@ -2801,6 +2817,10 @@ static int fts_remove(struct i2c_client *client)
 
 	input_info(true, &info->client->dev, "%s\n", __func__);
 	info->shutdown_is_on_going = true;
+
+#ifdef CONFIG_FB
+	fb_unregister_client(&info->fb_notif);
+#endif
 
 	disable_irq_nosync(info->client->irq);
 	free_irq(info->client->irq, info);
@@ -3129,7 +3149,7 @@ void fts_release_all_finger(struct fts_ts_info *info)
 	input_report_switch(info->input_dev, SW_GLOVE, false);
 	info->touch_mode = FTS_TM_NORMAL;
 #endif
-	input_report_key(info->input_dev, KEY_HOMEPAGE, 0);
+	input_report_key(info->input_dev, KEY_WAKEUP, 0);
 
 	if (info->board->support_sidegesture) {
 		input_report_key(info->input_dev, KEY_SIDE_GESTURE, 0);
@@ -3231,7 +3251,7 @@ static void fts_reset_work(struct work_struct *work)
 	if (fts_start_device(info) < 0)
 		input_err(true, &info->client->dev, "%s: Failed to start device\n", __func__);
 
-	if (info->input_dev_touch->disabled) {
+	if (info->input_dev_touch->disabled || info->panel_off) {
 		u8 data[8] = { 0 };
 		input_err(true, &info->client->dev, "%s: call input_close\n", __func__);
 
@@ -3448,6 +3468,42 @@ out:
 
 	return 0;
 }
+
+#ifdef CONFIG_FB
+/*
+ * Samsung's framework drops the IC into low power by writing
+ * /sys/class/input/inputN/enabled. AOSP does not, so follow the panel instead.
+ * Only fb0 (the internal panel) counts; fb_blank() notifies every call, and
+ * the input close path may have got there first, so check the power state.
+ */
+static int fts_fb_notifier_callback(struct notifier_block *self,
+		unsigned long event, void *data)
+{
+	struct fts_ts_info *info = container_of(self, struct fts_ts_info, fb_notif);
+	struct fb_event *evdata = data;
+	int blank;
+
+	if (!evdata || !evdata->info || !evdata->data || evdata->info->node != 0)
+		return NOTIFY_DONE;
+
+	if (!info->probe_done || info->shutdown_is_on_going)
+		return NOTIFY_DONE;
+
+	blank = *(int *)evdata->data;
+
+	if (event == FB_EARLY_EVENT_BLANK && blank == FB_BLANK_UNBLANK) {
+		info->panel_off = false;
+		if (info->fts_power_state != FTS_POWER_STATE_ACTIVE)
+			fts_start_device(info);
+	} else if (event == FB_EVENT_BLANK && blank == FB_BLANK_POWERDOWN) {
+		info->panel_off = true;
+		if (info->fts_power_state == FTS_POWER_STATE_ACTIVE)
+			fts_stop_device(info, info->lowpower_flag);
+	}
+
+	return NOTIFY_OK;
+}
+#endif
 
 static void fts_shutdown(struct i2c_client *client)
 {
