@@ -3856,6 +3856,15 @@ void mdss_samsung_panel_low_power_config(struct mdss_panel_data *pdata, int enab
 	}
 
 	if (!vdd->dtsi_data[ctrl->ndx].panel_lpm_enable) {
+		/*
+		 * Without ALPM/HLPM the panel stays in normal mode while dozing.
+		 * mdss_dsi_panel_low_power_config() has already marked it
+		 * BLANK_LOW_POWER, which makes mdss_samsung_send_cmd() drop
+		 * brightness and other non-LPM commands. Nothing would clear that
+		 * on doze -> on, leaving brightness stuck at the doze level, so
+		 * keep the panel treated as unblanked.
+		 */
+		pdata->panel_info.blank_state = MDSS_PANEL_BLANK_UNBLANK;
 		LCD_INFO("[Panel LPM] LPM(ALPM/HLPM) is not supported\n");
 		return;
 	}
