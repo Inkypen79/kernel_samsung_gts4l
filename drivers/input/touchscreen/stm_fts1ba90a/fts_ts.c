@@ -3502,7 +3502,12 @@ static int fts_fb_notifier_callback(struct notifier_block *self,
 		info->panel_off = false;
 		if (info->fts_power_state != FTS_POWER_STATE_ACTIVE)
 			fts_start_device(info);
-	} else if (event == FB_EVENT_BLANK && blank == FB_BLANK_POWERDOWN) {
+	} else if (event == FB_EVENT_BLANK && blank != FB_BLANK_UNBLANK) {
+		/*
+		 * Treat doze (FB_BLANK_NORMAL) and doze suspend
+		 * (FB_BLANK_VSYNC_SUSPEND) like powerdown, so that touch
+		 * enters low power mode and gestures work from ambient display.
+		 */
 		info->panel_off = true;
 		if (info->fts_power_state == FTS_POWER_STATE_ACTIVE)
 			fts_stop_device(info, info->lowpower_flag);
