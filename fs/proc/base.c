@@ -2203,7 +2203,8 @@ struct map_files_info {
 static const char *
 proc_map_files_follow_link(struct dentry *dentry, void **cookie)
 {
-	if (!capable(CAP_SYS_ADMIN))
+	if (!capable(CAP_CHECKPOINT_RESTORE) &&
+	    !capable(CAP_SYS_ADMIN))
 		return ERR_PTR(-EPERM);
 
 	return proc_pid_follow_link(dentry, NULL);

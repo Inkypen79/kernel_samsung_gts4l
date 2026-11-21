@@ -1804,20 +1804,6 @@ static int validate_prctl_map(struct prctl_mm_map *prctl_map)
 			goto out;
 	}
 
-	/*
-	 * Finally, make sure the caller has the rights to
-	 * change /proc/pid/exe link: only local root should
-	 * be allowed to.
-	 */
-	if (prctl_map->exe_fd != (u32)-1) {
-		struct user_namespace *ns = current_user_ns();
-		const struct cred *cred = current_cred();
-
-		if (!uid_eq(cred->uid, make_kuid(ns, 0)) ||
-		    !gid_eq(cred->gid, make_kgid(ns, 0)))
-			goto out;
-	}
-
 	error = 0;
 out:
 	return error;
@@ -1837,6 +1823,10 @@ static int prctl_set_mm_map(int opt, const void __user *addr, unsigned long data
 	if (opt == PR_SET_MM_MAP_SIZE)
 		return put_user((unsigned int)sizeof(prctl_map),
 				(unsigned int __user *)addr);
+
+	/* The caller must be authorized to alter process checkpoint state. */
+	if (!checkpoint_restore_ns_capable(current_user_ns()))
+		return -EPERM;
 
 	if (data_size != sizeof(prctl_map))
 		return -EINVAL;
