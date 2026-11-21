@@ -1824,10 +1824,6 @@ static int prctl_set_mm_map(int opt, const void __user *addr, unsigned long data
 		return put_user((unsigned int)sizeof(prctl_map),
 				(unsigned int __user *)addr);
 
-	/* The caller must be authorized to alter process checkpoint state. */
-	if (!checkpoint_restore_ns_capable(current_user_ns()))
-		return -EPERM;
-
 	if (data_size != sizeof(prctl_map))
 		return -EINVAL;
 
@@ -1851,6 +1847,12 @@ static int prctl_set_mm_map(int opt, const void __user *addr, unsigned long data
 	}
 
 	if (prctl_map.exe_fd != (u32)-1) {
+		/* Match Linux 5.9: require checkpoint/restore authority only
+		 * when changing the executable file reference.
+		 */
+		if (!checkpoint_restore_ns_capable(current_user_ns()))
+			return -EPERM;
+
 		error = prctl_set_mm_exe_file(mm, prctl_map.exe_fd);
 		if (error)
 			return error;
