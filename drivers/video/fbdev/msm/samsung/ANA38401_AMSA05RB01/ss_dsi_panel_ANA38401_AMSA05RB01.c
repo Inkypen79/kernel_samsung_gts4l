@@ -108,7 +108,8 @@ static char mdss_panel_revision(struct mdss_dsi_ctrl_pdata *ctrl)
 
 static int mdss_manufacture_date_read(struct mdss_dsi_ctrl_pdata *ctrl)
 {
-	unsigned char date[4];
+	/* dtsi reads 7 bytes (D8h 134~140th para); only the first 4 are used */
+	unsigned char date[8] = {0,};
 	int year, month, day;
 	int hour, min;
 	struct samsung_display_driver_data *vdd = check_valid_ctrl(ctrl);
