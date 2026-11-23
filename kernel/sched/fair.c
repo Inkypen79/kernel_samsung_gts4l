@@ -9010,12 +9010,13 @@ redo:
 next:
 		list_move_tail(&p->se.group_node, tasks);
 	}
-
+#ifdef CONFIG_SCHED_HMP
 	/* in case of enable sched_ilb_ctl node,
 	 * we don't want to task unintentionally migrate big/little
 	 * idle balancing will be happen only in the same cluster
 	 */
 	if(!sysctl_sched_ilb_ctl)
+#endif
 		if (env->flags & (LBF_IGNORE_BIG_TASKS |
 				LBF_IGNORE_PREFERRED_CLUSTER_TASKS) && !detached) {
 			tasks = &env->src_rq->cfs_tasks;
